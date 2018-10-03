@@ -54,7 +54,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('/create-campaign', 'Trafficking\CampaignController@createCampaign');
-Route::get('/create-placement', 'Trafficking\CampaignController@createPlacement');
-Route::get('/create-ad', 'Trafficking\CampaignController@createAd');
-Route::get('/create-creative', 'Trafficking\CampaignController@createCreative');
+Route::post('/create-campaign', 'Trafficking\CampaignController@createCampaign');
+Route::get('/create-placement', 'Trafficking\PlacementController@createPlacement');
+Route::get('/create-ad', 'Trafficking\AdController@createAd');
+Route::post('/create-creative', 'Trafficking\CreativeController@createCreative');
