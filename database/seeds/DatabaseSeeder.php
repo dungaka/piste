@@ -11,21 +11,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // for ($i=0; $i < 10; $i++) {
-        //     factory(App\Client::class)->create();
-        //     factory(App\Campaign::class)->create();
-        //     factory(App\InsertionOrder::class)->create();
-        // };
-
-        factory(App\Client::class)->create();
-        factory(App\Campaign::class)->create();
-        factory(App\MediaPlan::class)->create();
-        factory(App\InsertionOrder::class)->create();
-        factory(App\Creative::class)->create();
-
-        // DB::table('creative_line_item')->insert([
-        //     'creative_id' => 1,
-        //     'line_item_id' => 1
-        // ]);
+        DB::table('clients')->insert([
+            'name' => "Countdown",
+            'dbm_advertiser_id' => 1853942,
+            'fee' => 30
+        ]);
+        DB::table('clients')->insert([
+            'name' => "Briscoes",
+            'dbm_advertiser_id' => 1859543,
+            'fee' => 30
+        ]);
+        DB::table('clients')->insert([
+            'name' => "Rebel Sport",
+            'dbm_advertiser_id' => 1859455,
+            'fee' => 30
+        ]);
     }
 }

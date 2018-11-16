@@ -15,12 +15,11 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
-            $table->integer('dbm_id')->nullable();
-            $table->integer('brightroll_id')->nullable();
-            $table->integer('ad_server_id')->nullable();
-            // TODO add a bool for current/not current client
+            $table->integer('dbm_advertiser_id');
+
+            $table->string('name');
+            $table->integer('fee');
+
             $table->timestamps();
         });
     }

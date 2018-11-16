@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMediaPlansTable extends Migration
+class CreateInsertionOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateMediaPlansTable extends Migration
      */
     public function up()
     {
-        Schema::create('media_plans', function (Blueprint $table) {
+        Schema::create('insertion_orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('campaign_id');
-            $table->string('name');
-            $table->integer('dbm_id')->nullable();
-            $table->integer('brightroll_id')->nullable();
-            $table->longText('description')->nullable();
+
+            $table->integer('dbm_campaign_id');
+            $table->integer('dbm_insertion_order_id');
+            $table->string('io_name');
+            $table->string('status');
+            $table->string('pacing');
+            $table->string('pacing_rate');
+
             $table->timestamps();
         });
     }
@@ -31,6 +34,6 @@ class CreateMediaPlansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('media_plans');
+        Schema::dropIfExists('insertion_orders');
     }
 }

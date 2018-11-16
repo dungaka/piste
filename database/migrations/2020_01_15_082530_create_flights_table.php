@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCampaignsTable extends Migration
+class CreateFlightsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateCampaignsTable extends Migration
      */
     public function up()
     {
-        Schema::create('campaigns', function (Blueprint $table) {
+        Schema::create('flights', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('client_id');
-            $table->string('name');
-            $table->integer('dbm_id')->nullable();
-            $table->integer('brightroll_id')->nullable();
-            $table->longText('description')->nullable();
+            $table->integer('insertion_order_id');
+
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->float('amount_budgeted', 24, 2);
+            $table->integer('duration');
+
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateCampaignsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('campaigns');
+        Schema::dropIfExists('flights');
     }
 }

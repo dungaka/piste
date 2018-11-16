@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInsertionOrdersTable extends Migration
+class CreateCampaignsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateInsertionOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('insertion_orders', function (Blueprint $table) {
+        Schema::create('campaigns', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('insertion_order_id');
-            $table->string('name');
-            $table->boolean('gender')->nullable();
-            $table->string('age')->nullable();
+
+            $table->integer('dbm_campaign_id');
+            $table->integer('dbm_advertiser_id');
+
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateInsertionOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('insertion_orders');
+        Schema::dropIfExists('campaigns');
     }
 }

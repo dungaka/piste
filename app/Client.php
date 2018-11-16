@@ -6,14 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    public function campaign()
+    public function campaigns()
     {
-        return $this->hasMany(Campaign::class);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
+        return $this->hasMany(
+            Campaign::class,
+            'dbm_advertiser_id',
+            'dbm_advertiser_id'
+        );
     }
 
     protected $guarded = [];
