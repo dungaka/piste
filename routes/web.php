@@ -39,3 +39,7 @@ Route::get('/cache', function() {
     $exitCode = Artisan::call('cache:clear');
     return redirect('/pacing');
 });
+Route::get('/seed', function() {
+    $exitCode = Artisan::call('db:seed --force');
+    return redirect('/pacing');
+});
