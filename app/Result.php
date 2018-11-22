@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Result extends Model
 {
-    protected $touches = ['insertion_order'];
-
     /**
      * The attributes that should be mutated to dates.
      *

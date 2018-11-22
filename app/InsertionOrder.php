@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class InsertionOrder extends Model
 {
-    protected $touches = ['flight'];
-
     public function insertion_order_budgets()
     {
         return $this->hasMany(Flight::class);

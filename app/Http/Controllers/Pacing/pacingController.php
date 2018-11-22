@@ -14,6 +14,22 @@ use App\Http\Controllers\Controller;
 
 class pacingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Get the path the user should be redirected to.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return string
+     */
+    protected function redirectTo($request)
+    {
+        return route('login');
+    }
+
     /**
      * Show all clients and all of their information.
      *
@@ -24,7 +40,7 @@ class pacingController extends Controller
     {
         $flights = Flight::active()->get();
         
-        return view('insertion_orders.show', compact('flights'));
+        return view('insertion_orders.index', compact('flights'));
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $secret = Hash::make('Ogilvymine!');
+
         DB::table('clients')->insert([
             'name' => "Countdown",
             'dbm_advertiser_id' => 1853942,
@@ -25,6 +28,13 @@ class DatabaseSeeder extends Seeder
             'name' => "Rebel Sport",
             'dbm_advertiser_id' => 1859455,
             'fee' => 30
+        ]);
+        DB::table('users')->insert([
+            [
+                'email' => 'analytics@ogilvy.co.nz',
+                'name' => 'Ogilvy',
+                'password' => $secret,
+            ]
         ]);
     }
 }

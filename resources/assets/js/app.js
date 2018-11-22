@@ -15,7 +15,13 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import TableComponent from 'vue-table-component';
+
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+Vue.use(TableComponent, {
+    tableClass: 'table table-striped',
+});
 
 const app = new Vue({
     el: '#app'

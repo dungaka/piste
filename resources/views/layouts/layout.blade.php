@@ -5,19 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Expression</title>
+    <title>Piste</title>    
 
     <!-- Custom styles for this template -->
-    <link href="/css/app.css" rel="stylesheet">
-  </head>
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
 
-  <body>
+</head>
 
-    <div class="container">
+<body>
+
+    <div id="app" class="container">
       <div class="row">
         @yield('content')
       </div>
     </div>
 
-  </body>
+  <script src="/js/app.js"></script>
+</body>
 </html>

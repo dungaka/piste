@@ -55,7 +55,14 @@ class Flight extends Model
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    protected $appends = ['lapsed', 'actual_spend_to_date', 'planned_spend_to_date', 'pace'];
+    protected $appends = ['name', 'lapsed', 'actual_spend_to_date', 'planned_spend_to_date', 'pace'];
+
+    public function getNameAttribute()
+    {
+        return Cache::remember($this->cacheKey() . ':name', 15, function () {
+            return $this->insertion_order->io_name;
+        });
+    }
 
     public function getLapsedAttribute()
     {
@@ -66,7 +73,7 @@ class Flight extends Model
                 $lapsed = $this->duration;
             }
 
-            return $lapsed;
+            return round($lapsed, 2);
         });
     }
 
@@ -87,28 +94,35 @@ class Flight extends Model
                                                 ->dbm_insertion_order_id
                                             )->whereIn('date', $flight_dates)
                                             ->sum->amount_spent;
-            return $actual_spend_to_date;
+            return round($actual_spend_to_date, 2);
         });
     }
 
     public function getPlannedSpendToDateAttribute()
     {
         return Cache::remember($this->cacheKey() . ':planned_spend_to_date', 15, function () {
+            if($this->duration > 0) {
+                $planned_spend_to_date = $this->amount_budgeted / $this->duration * $this->getLapsedAttribute();
+            } else {
+                $planned_spend_to_date = 0;
+            }
 
-            $planned_spend_to_date = $this->amount_budgeted;
-            $planned_spend_to_date = $planned_spend_to_date / $this->duration * $this->getLapsedAttribute();
-
-            return $planned_spend_to_date;
+            return round($planned_spend_to_date, 2);
         });
     }
 
     public function getPaceAttribute()
     {
         return Cache::remember($this->cacheKey() . ':pace', 60, function () {
-            $pace = (
-                $this->getPlannedSpendToDateAttribute() - $this->getActualSpendToDateAttribute()
-                ) / $this->getPlannedSpendToDateAttribute() * 100;
-            return $pace;
+            if($this->getPlannedSpendToDateAttribute() > 0) {
+                $pace = (
+                    $this->getActualSpendToDateAttribute() - $this->getPlannedSpendToDateAttribute()
+                    ) / $this->getPlannedSpendToDateAttribute() * 100;                
+            } else {
+                $pace = 0;
+            }
+
+            return round($pace, 2);
         });
     }
 

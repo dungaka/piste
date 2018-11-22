@@ -1,31 +1,18 @@
 @extends('layouts.layout')
 
 @section('content')
-    <div>
-        <h1>Insertion Orders</h1>
+<table-component
+    :data="{{ $flights }}"
+    sort-by="pace"
+    sort-order="asc"
+>
+    <table-column show="name" label="Flight Name"></table-column>
+    <table-column show="planned_spend_to_date" label="Planned Spend to Date" data-type="numeric"></table-column>
+    <table-column show="actual_spend_to_date" label="Actual Spend to Date" data-type="numeric"></table-column>
+    <table-column show="pace" label="Pace" data-type="numeric"></table-column>
+    <table-column show="duration" label="Duration" data-type="numeric"></table-column>
+    <table-column show="lapsed" label="Lapsed" data-type="numeric"></table-column>
+    <table-column show="amount_budgeted" label="Total Budget" data-type="numeric"></table-column>
+</table-component> 
 
-        <hr>
-
-        @foreach($clients as $client)
-            <h3>{{ $client->name }}</h3>
-            @foreach($client->campaigns as $campaign)
-                @foreach($campaign->insertion_orders as $insertion_order)
-                    <h4>{{ $insertion_order->name }}</h4>
-                    @foreach($insertion_order->insertion_order_budgets as $insertion_order_budget)
-                        <h5>Flight {{ $loop->iteration }} | {{ $insertion_order_budget->start }} - {{ $insertion_order_budget->end }}</h5>
-                        <ul>
-                            <li>Budget: {{ $insertion_order_budget->amount_budgeted }}</li>
-                        </ul>
-                    @endforeach
-                    @foreach($insertion_order->results as $result)
-                        <h5>Result {{ $loop->iteration }}</h5>
-                        <ul>
-                            <li>Amount Spent: {{ $result->amount_spent }}</li>
-                        </ul>
-                    @endforeach
-                @endforeach
-            @endforeach
-        @endforeach
-
-    </div>
 @endsection

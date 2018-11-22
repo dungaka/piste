@@ -15,6 +15,11 @@ use App\Http\Controllers\Controller;
 
 class dbmController extends Controller
 {
+    public function refresh()
+    {
+        return redirect('/create');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -23,6 +28,7 @@ class dbmController extends Controller
      */
     public function create()
     {
+        var_dump('Retrieving IO details');
         $clients = Client::all();
         $advertiser_ids = [];
         foreach($clients as $client) {
@@ -113,6 +119,7 @@ class dbmController extends Controller
                 'dbm_advertiser_id' => $record["Advertiser Id"],
             ]);
         }
+        return redirect('/results');
     }
 
     /**
@@ -123,6 +130,7 @@ class dbmController extends Controller
      */
     public function results()
     {
+        var_dump('Retrieving Campaign Results');
         Result::truncate();
         $client = new \Google_Client();
 
@@ -168,5 +176,6 @@ class dbmController extends Controller
         foreach(array_chunk($results, 500) as $result) {
             Result::insert($result);
         }
+        return redirect('/cache');
     }
 }
