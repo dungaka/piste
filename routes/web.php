@@ -40,6 +40,6 @@ Route::get('/cache', function() {
     return redirect('/pacing');
 });
 Route::get('/seed', function() {
-    $exitCode = Artisan::call('db:seed --force');
+    $exitCode = Artisan::call('db:seed');
     return redirect('/pacing');
 });
