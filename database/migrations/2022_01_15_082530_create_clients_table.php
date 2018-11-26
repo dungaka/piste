@@ -21,7 +21,7 @@ class CreateClientsTable extends Migration
             $table->integer('fee');
 
             $table->timestamps();
-        });
+        }); 
     }
 
     /**
