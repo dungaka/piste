@@ -39,7 +39,8 @@ Route::get('/cache', function() {
     $exitCode = Artisan::call('cache:clear');
     return redirect('/pacing');
 });
-Route::get('/seed', function() {
+Route::get('/seed', function() {    
+    $exitCode = Artisan::call('migrate:refresh');
     $exitCode = Artisan::call('db:seed');
     return redirect('/pacing');
 });
