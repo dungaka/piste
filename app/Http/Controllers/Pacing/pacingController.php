@@ -49,23 +49,42 @@ class pacingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function flight()
+    public function revenue()
     {
         $flights = Flight::active()->get();
+        $month_start = new Carbon('first day of this month');
+        $month_end = new Carbon('last day of this month');
+        $flight_revenue = [];
 
-        return view('insertion_orders.flight', compact('flights'));
-    }
+        foreach($flights as $flight) {
+            $flight_dates = CarbonPeriod::create(
+                $flight->start->subday(),
+                $flight->end
+            )->toArray();
 
-    /**
-     * Show all clients and all of their information.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
-    {
-        $flights = Flight::active()->get();
+            $daily_spend = $flight->amount_budgeted / count($flight_dates);
+
+            $flight_dates_this_month = [];
+            foreach($flight_dates as $flight_date) {
+                if($flight_date < $month_start) {
+
+                }
+                elseif($flight_date > $month_end) {
+
+                }
+                else {
+                    $flight_dates_this_month[] = $flight_date;
+                }
+            }
+            $flight_revenue[] = $daily_spend * count($flight_dates_this_month);
+        }
+
+        $spend = array_sum($flight_revenue);
+
+        $revenue = ($spend * 1.3) - $spend;
+
+        dd($revenue);
         
-        return view('insertion_orders.show', compact('flights'));
+        return view('insertion_orders.revenue', compact('flights', 'flight_dates'));
     }
 }

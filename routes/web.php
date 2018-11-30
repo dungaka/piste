@@ -26,9 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/clients', 'ClientController');
 
 Route::get('/pacing', 'Pacing\pacingController@index');
-// Route::get('/pacing/{id}', 'Pacing\pacingController@show');
-// Route::get('/pacing/flight', 'Pacing\pacingController@flight');
-
+Route::get('/revenue', 'Pacing\pacingController@revenue');
 
 
 

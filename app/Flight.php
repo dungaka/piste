@@ -48,6 +48,12 @@ class Flight extends Model
                 ->whereDate('end', '>', Carbon::today()->subDays(7))
                 ->where('amount_budgeted', '>', '2');
     }
+    public function scopeClient($query, $client)
+    {
+        return $query
+                ->where('$', '>', Carbon::today()->subDays(7))
+                ->where('amount_budgeted', '>', '2');
+    }
 
     /**
      * Create calculated fields.
